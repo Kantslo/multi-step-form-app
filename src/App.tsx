@@ -15,7 +15,7 @@ function App() {
           {step}
           <div>
             {!isFirstStep && <button type="button" onClick={prevStep}>Go Back</button>}
-            <button type="submit" onClick={nextStep}>{isLastStep ? "Confirm" : "Next Step"}</button>
+            <button type="button" onClick={nextStep}>{isLastStep ? "Confirm" : "Next Step"}</button>
           </div>
       </div>
     </>
