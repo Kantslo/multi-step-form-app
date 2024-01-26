@@ -1,7 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { userFormSchema } from "../schemas/user-form-schema";
-import { useEffect, useState } from "react";
 
 type UserFormType = {
   name: string;
@@ -9,39 +8,22 @@ type UserFormType = {
   phone: string;
 };
 
-const UserForm = () => {
+const UserForm = ({ formData, setFormData }: any) => {
   const {
     register,
-    handleSubmit,
     formState: { errors },
-    getValues,
   } = useForm<UserFormType>({
     resolver: zodResolver(userFormSchema),
-    defaultValues: JSON.parse(localStorage.getItem("userFormData") || "{}"),
   });
-
-  const [formValues, setFormValues] = useState<UserFormType>(getValues());
-
-  useEffect(() => {
-    localStorage.setItem("userFormData", JSON.stringify(formValues));
-  }, [formValues]);
-
-  const onSubmit = (data: UserFormType) => {
-      localStorage.setItem("userFormData", JSON.stringify(data));
-  };
-
-  const handleChange = () => {
-    setFormValues(getValues());
-  };
 
   return (
     <>
-      <section className="flex flex-col justify-center font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto -mt-[99px]">
+      <section className="flex flex-col justify-center font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto mb-6">
         <div className="flex flex-col">
           <h2 className="text-[24px] text-[#022959] font-bold">Personal info</h2>
           <p className="text-[#9699AA] leading-[25px] text-[16px]">Please provide your name, email address, and phone number.</p>
         </div>
-        <form className="flex flex-col gap-4 mt-[22px]" onClick={handleSubmit(onSubmit)}>
+        <form className="flex flex-col gap-4 mt-[22px]">
           <div className="flex flex-col">
             <label className="text-[12px] text-[#022959]" htmlFor="name">Name</label>
             <input
@@ -51,7 +33,8 @@ const UserForm = () => {
               type="text"
               id="name"
               {...register("name")}
-              onChange={handleChange}
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
             {errors.name && <p>{errors.name.message}</p>}
           </div>
@@ -63,7 +46,8 @@ const UserForm = () => {
               type="text"
               id="email"
               {...register("email")}
-              onChange={handleChange}
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
             {errors.email && <p>{errors.email.message}</p>}
           </div>
@@ -75,7 +59,8 @@ const UserForm = () => {
               type="text"
               id="phone"
               {...register("phone")}
-              onChange={handleChange}
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
             {errors.phone && <p>{errors.phone.message}</p>}
           </div>

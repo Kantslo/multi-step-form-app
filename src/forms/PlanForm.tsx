@@ -12,18 +12,17 @@ const PlanForm = () => {
     setIsChecked(!isChecked)
   }
 
-
   return (
     <>
-        <section className="flex flex-col justify-center font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto -mt-[63px] mb-6">
+        <section className="flex flex-col justify-center font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto mb-6">
           <div className="flex flex-col">
             <h2 className="text-[24px] text-[#022959] font-bold">Select your plan</h2>
             <p className="text-[#9699AA] leading-[25px] text-[16px]">You have the option of monthly or yearly billing.</p>
           </div>
           <form className="flex flex-col gap-4 mt-[22px]">
             <label 
-              style={{ border: plan === "arcade" ? "1px solid #483EFF" : "1px solid #D6D9E6" }} 
-              className="flex flex-row items-center px-4 py-4 rounded-[8px] bg-[#F8F9FF]">
+              style={{ border: plan === "arcade" ? "1px solid #483EFF" : "", background: plan === "arcade" ? "#F8F9FF" : "" }} 
+              className="flex flex-row items-center px-4 py-4 rounded-[8px] border border-[#D6D9E6]">
               <IconArcade />
               <input
                 className="invisible"
@@ -36,7 +35,9 @@ const PlanForm = () => {
                 <span className="text-[#9699AA] text-[12px] leading-[20px]">$9/mo</span>
               </div>
             </label>
-            <label style={{ border: plan === "advanced" ? "1px solid #483EFF" : "1px solid #D6D9E6" }} className="flex flex-row items-center px-4 py-4 border border-[#483EFF] rounded-[8px] bg-[#F8F9FF]">
+            <label 
+              style={{ border: plan === "advanced" ? "1px solid #483EFF" : "", background: plan === "advanced" ? "#F8F9FF" : "" }} 
+              className="flex flex-row items-center px-4 py-4 rounded-[8px] border border-[#D6D9E6]">
               <IconAdvanced />
               <input
                 className="invisible"
@@ -49,7 +50,9 @@ const PlanForm = () => {
                 <span className="text-[#9699AA] text-[12px] leading-[20px]">$12/mo</span>
               </div>
             </label>
-            <label style={{ border: plan === "pro" ? "1px solid #483EFF" : "1px solid #D6D9E6" }} className="flex flex-row items-center px-4 py-4 border border-[#483EFF] rounded-[8px] bg-[#F8F9FF]">
+            <label 
+              style={{ border: plan === "pro" ? "1px solid #483EFF" : "", background: plan === "pro" ? "#F8F9FF" : ""}} 
+              className="flex flex-row items-center px-4 py-4 rounded-[8px] border border-[#D6D9E6]">
               <IconPro />
               <input
                 className="invisible"

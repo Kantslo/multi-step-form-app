@@ -3,11 +3,27 @@ import SidebarMobile from "./components/SidebarMobile";
 import UserForm from "./forms/UserForm";
 import useMultiStepForm from "./components/useMultiStepForm"
 import AddonForm from "./forms/AddonForm";
+import { useState } from "react";
+
+type FormDataType = {
+  name: string;
+  email: string;
+  phone: string;
+  plan: string;
+  addons: string[];
+};
 
 function App() {
+  const [formData, setFormData] = useState<FormDataType>({
+    name: "",
+    email: "",
+    phone: "",
+    plan: "",
+    addons: [],
+  });
 
   const { step, isFirstStep, isLastStep, nextStep, prevStep } = useMultiStepForm([
-    <UserForm />,
+    <UserForm formData={formData} setFormData={setFormData} />,
     <PlanForm />,
     <AddonForm />
   ]);
