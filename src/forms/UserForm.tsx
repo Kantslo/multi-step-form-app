@@ -36,7 +36,7 @@ const UserForm = () => {
 
   return (
     <>
-      <section className="flex flex-col justify-center font-ubuntu bg-white px-6 py-8 w-[343px] h-[376px] rounded-[10px] mx-auto -mt-[63px]">
+      <section className="flex flex-col justify-center font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto -mt-[99px]">
         <div className="flex flex-col">
           <h2 className="text-[24px] text-[#022959] font-bold">Personal info</h2>
           <p className="text-[#9699AA] leading-[25px] text-[16px]">Please provide your name, email address, and phone number.</p>
