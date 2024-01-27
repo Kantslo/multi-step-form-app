@@ -14,7 +14,7 @@ const PlanForm = () => {
 
   return (
     <>
-        <section className="flex flex-col justify-center font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto mb-6">
+        <section className="flex flex-col font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto mb-6 -mt-[70px]">
           <div className="flex flex-col">
             <h2 className="text-[24px] text-[#022959] font-bold">Select your plan</h2>
             <p className="text-[#9699AA] leading-[25px] text-[16px]">You have the option of monthly or yearly billing.</p>

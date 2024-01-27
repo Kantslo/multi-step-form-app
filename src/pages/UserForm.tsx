@@ -1,24 +1,10 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { userFormSchema } from "../schemas/user-form-schema";
 
-type UserFormType = {
-  name: string;
-  email: string;
-  phone: string;
-};
 
-const UserForm = ({ formData, setFormData }: any) => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm<UserFormType>({
-    resolver: zodResolver(userFormSchema),
-  });
+const UserForm = () => {
 
   return (
     <>
-      <section className="flex flex-col justify-center font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto mb-6">
+      <section className="flex flex-col font-ubuntu bg-white px-6 py-8 max-w-[343px] rounded-[10px] mx-auto mb-6 -mt-[70px]">
         <div className="flex flex-col">
           <h2 className="text-[24px] text-[#022959] font-bold">Personal info</h2>
           <p className="text-[#9699AA] leading-[25px] text-[16px]">Please provide your name, email address, and phone number.</p>
@@ -32,11 +18,7 @@ const UserForm = ({ formData, setFormData }: any) => {
               autoFocus
               type="text"
               id="name"
-              {...register("name")}
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
-            {errors.name && <p>{errors.name.message}</p>}
           </div>
           <div className="flex flex-col">
             <label className="text-[12px] text-[#022959]" htmlFor="email">Email address</label>
@@ -45,11 +27,7 @@ const UserForm = ({ formData, setFormData }: any) => {
               placeholder="e.g. stephenking@lorem.com"
               type="text"
               id="email"
-              {...register("email")}
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
-            {errors.email && <p>{errors.email.message}</p>}
           </div>
           <div className="flex flex-col items">
             <label className="text-[12px] text-[#022959]" htmlFor="phone">Phone</label>
@@ -58,11 +36,7 @@ const UserForm = ({ formData, setFormData }: any) => {
               placeholder="e.g. +1 234 567 890"
               type="text"
               id="phone"
-              {...register("phone")}
-              value={formData.phone}
-              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
-            {errors.phone && <p>{errors.phone.message}</p>}
           </div>
         </form>
       </section>
