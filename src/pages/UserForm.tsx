@@ -1,6 +1,18 @@
+import { useForm } from "react-hook-form"
 
+type TUser = {
+  name: string
+  email: string
+  phone: number
+}
 
 const UserForm = () => {
+
+  const  {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<TUser>();
 
   return (
     <>
@@ -18,6 +30,7 @@ const UserForm = () => {
               autoFocus
               type="text"
               id="name"
+              {...register("name")}
             />
           </div>
           <div className="flex flex-col">
@@ -27,6 +40,7 @@ const UserForm = () => {
               placeholder="e.g. stephenking@lorem.com"
               type="text"
               id="email"
+              {...register("email")}
             />
           </div>
           <div className="flex flex-col items">
@@ -34,8 +48,9 @@ const UserForm = () => {
             <input
               className="placeholder:text-[#9699AA] placeholder:font-medium placeholder:text-[15px] border border-[#D6D9E6] rounded-[4px] bg-white px-4 py-[11px]"
               placeholder="e.g. +1 234 567 890"
-              type="text"
+              type="number"
               id="phone"
+              {...register("phone")}
             />
           </div>
         </form>
