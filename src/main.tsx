@@ -14,7 +14,7 @@ import Finish from "./pages/Finish.tsx";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "*",
     element: <App />,
     errorElement: <NotFoundPage />,
   },
