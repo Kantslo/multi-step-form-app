@@ -146,7 +146,7 @@ const AddonForm = () => {
                 +$2/mo
               </span>
             </label>
-            <button type="submit"></button>
+            <input type="submit" />
           </form>
         </section>
       </div>

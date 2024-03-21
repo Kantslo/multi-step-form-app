@@ -1,9 +1,12 @@
 import { useState } from "react";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
-import SidebarMobile from "../components/SidebarMobile";
+import { planFormSchema } from "../schemas/plan-form-schema";
 import IconAdvanced from "../components/ui/IconAdvanced";
+import SidebarMobile from "../components/SidebarMobile";
 import usePageNumStore from "../store/page-num-store";
 import IconArcade from "../components/ui/IconArcade";
 import IconPro from "../components/ui/IconPro";
@@ -11,6 +14,14 @@ import PrevStep from "../components/PrevStep";
 import NextStep from "../components/NextStep";
 
 const PlanForm = () => {
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(planFormSchema),
+  });
   const { setPage } = usePageNumStore();
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
@@ -135,6 +146,7 @@ const PlanForm = () => {
               Yearly
             </span>
           </div>
+          <input type="submit" />
         </form>
       </section>
       <div className="flex items-center justify-between w-full h-[4.5rem] px-4 bg-white">

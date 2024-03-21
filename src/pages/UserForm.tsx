@@ -111,7 +111,7 @@ const UserForm = () => {
             />
             <p className="text-xs text-red-500">{errors.phone?.message}</p>
           </div>
-          <button type="submit"></button>
+          <input type="submit" />
         </form>
       </section>
     </>
