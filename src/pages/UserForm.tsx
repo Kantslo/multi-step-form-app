@@ -1,24 +1,40 @@
 import { useEffect } from "react";
 
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import SidebarMobile from "../components/SidebarMobile";
 import { useFormStore } from "../store/form-store";
+import { userFormSchema } from "../schemas/user-form-schema";
 
 type TUser = {
   name: string;
   email: string;
-  phone: number;
+  phone: string;
 };
 
 const UserForm = () => {
-  const { register, handleSubmit, setValue } = useForm<TUser>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<TUser>({
+    resolver: zodResolver(userFormSchema),
+  });
   const { setForm } = useFormStore();
 
   const onSubmit = async (data: TUser) => {
-    console.log(data);
-    setForm(data);
-    localStorage.setItem("multi-step-form", JSON.stringify(data));
+    const { name, email, phone } = data;
+    const formData = {
+      name,
+      email,
+      phone: Number(phone),
+    };
+
+    console.log(formData);
+    setForm(formData);
+    localStorage.setItem("multi-step-form", JSON.stringify(formData));
   };
 
   useEffect(() => {
@@ -60,6 +76,7 @@ const UserForm = () => {
               id="name"
               {...register("name")}
             />
+            <p className="text-xs text-red-500">{errors.name?.message}</p>
           </div>
           <div className="flex flex-col">
             <label className="text-[12px] text-[#022959]" htmlFor="email">
@@ -72,6 +89,7 @@ const UserForm = () => {
               id="email"
               {...register("email")}
             />
+            <p className="text-xs text-red-500">{errors.email?.message}</p>
           </div>
           <div className="flex flex-col items">
             <label className="text-[12px] text-[#022959]" htmlFor="phone">
@@ -80,10 +98,11 @@ const UserForm = () => {
             <input
               className="placeholder:text-[#9699AA] placeholder:font-medium placeholder:text-[15px] border border-[#D6D9E6] rounded-[4px] bg-white px-4 py-[11px]"
               placeholder="e.g. +1 234 567 890"
-              type="number"
+              type="tel"
               id="phone"
               {...register("phone")}
             />
+            <p className="text-xs text-red-500">{errors.phone?.message}</p>
           </div>
           <button type="submit"></button>
         </form>
