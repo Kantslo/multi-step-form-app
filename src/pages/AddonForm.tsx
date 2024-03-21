@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
@@ -8,13 +9,16 @@ import usePageNumStore from "../store/page-num-store";
 import SidebarMobile from "../components/SidebarMobile";
 import NextStep from "../components/NextStep";
 import PrevStep from "../components/PrevStep";
+import { addonFormSchema } from "../schemas/addon-form-schema";
 
 type TAddons = {
   addons: "online_service" | "larger_storage" | "customizable_profile";
 };
 
 const AddonForm = () => {
-  const { register, handleSubmit, setValue } = useForm();
+  const { register, handleSubmit, setValue } = useForm({
+    resolver: zodResolver(addonFormSchema),
+  });
   const { setForm } = useFormStore();
 
   const { setPage } = usePageNumStore();
