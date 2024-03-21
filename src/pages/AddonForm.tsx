@@ -1,13 +1,42 @@
+import { useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useFormStore } from "../store/form-store";
 
 import usePageNumStore from "../store/page-num-store";
 import SidebarMobile from "../components/SidebarMobile";
 import NextStep from "../components/NextStep";
 import PrevStep from "../components/PrevStep";
 
+type TAddons = {
+  addons: "online_service" | "larger_storage" | "customizable_profile";
+};
+
 const AddonForm = () => {
+  const { register, handleSubmit, setValue } = useForm();
+  const { setForm } = useFormStore();
+
   const { setPage } = usePageNumStore();
   const navigate = useNavigate();
+
+  const onSubmit = async (data: Partial<TAddons>) => {
+    console.log(data);
+    setForm(data);
+    localStorage.setItem("multi-step-form", JSON.stringify(data));
+  };
+
+  useEffect(() => {
+    const savedData = localStorage.getItem("multi-step-form");
+
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+
+      setValue("online_service", parsedData.online_service);
+      setValue("larger_storage", parsedData.larger_storage);
+      setValue("customizable_profile", parsedData.customizable_profile);
+    }
+  }, []);
 
   const prevStepHandler = () => {
     setPage(2);
@@ -18,6 +47,7 @@ const AddonForm = () => {
     setPage(4);
     navigate("/finish");
   };
+
   return (
     <main className="flex flex-col justify-between min-h-screen">
       <div>
@@ -31,16 +61,18 @@ const AddonForm = () => {
               Add-ons help enhance your gaming experience.
             </p>
           </div>
-          <form className="flex flex-col gap-y-3 mt-[1.375rem]">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex flex-col gap-y-3 mt-[1.375rem]">
             <label
               className="flex flex-row items-center justify-between border border-[#D6D9E6] rounded-[0.5rem] px-4 py-3"
               htmlFor="online_service">
               <div className="flex flex-row items-center gap-x-4">
                 <input
                   className="h-[1.25rem] w-[1.25rem] rounded-4 border-[#483EFF] bg-[#483EFF] checked:bg-white"
-                  id="online_service"
-                  name="online_service"
                   type="checkbox"
+                  id="online_service"
+                  {...register("online_service")}
                 />
                 <div className="flex flex-col">
                   <span className="text-[0.875rem] font-medium text-[#022959]">
@@ -61,9 +93,9 @@ const AddonForm = () => {
               <div className="flex flex-row items-center gap-x-4">
                 <input
                   className="h-[20px] w-[20px] rounded-4 border-[#483EFF] bg-[#483EFF] checked:bg-white"
-                  id="larger_storage"
-                  name="larger_storage"
                   type="checkbox"
+                  id="larger_storage"
+                  {...register("larger_storage")}
                 />
                 <div className="flex flex-col">
                   <span className="text-[0.875rem] font-medium text-[#022959]">
@@ -84,9 +116,9 @@ const AddonForm = () => {
               <div className="flex flex-row items-center gap-x-4">
                 <input
                   className="h-[1.25rem] w-[1.25rem] rounded-4 border-[#483EFF] bg-[#483EFF] checked:bg-white"
-                  id="customizable_profile"
-                  name="customizable_profile"
                   type="checkbox"
+                  id="customizable_profile"
+                  {...register("customizable_profile")}
                 />
                 <div className="flex flex-col">
                   <span className="text-[0.875rem] font-medium text-[#022959]">
@@ -101,6 +133,7 @@ const AddonForm = () => {
                 +$2/mo
               </span>
             </label>
+            <button type="submit"></button>
           </form>
         </section>
       </div>
