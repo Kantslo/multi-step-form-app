@@ -3,7 +3,7 @@ import { create } from "zustand";
 type FormType = {
   name: string;
   email: string;
-  phone: string;
+  phone: number | null;
   plan: string | null;
   billing: string | null;
   addons: string | null;
@@ -12,7 +12,7 @@ type FormType = {
 const form: FormType = {
   name: "",
   email: "",
-  phone: "",
+  phone: null,
   plan: null,
   billing: null,
   addons: null,

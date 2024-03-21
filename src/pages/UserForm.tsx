@@ -8,7 +8,7 @@ import { useFormStore } from "../store/form-store";
 type TUser = {
   name: string;
   email: string;
-  phone: string;
+  phone: number;
 };
 
 const UserForm = () => {
