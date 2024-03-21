@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 import SidebarMobile from "../components/SidebarMobile";
-import { useFormStore } from "../store/form-store";
 import { userFormSchema } from "../schemas/user-form-schema";
+import { useFormStore } from "../store/form-store";
 
 type TUser = {
   name: string;
@@ -26,11 +26,18 @@ const UserForm = () => {
 
   const onSubmit = async (data: TUser) => {
     const { name, email, phone } = data;
-    const formData = {
+    let formData = {
       name,
       email,
       phone: Number(phone),
     };
+
+    const savedData = localStorage.getItem("multi-step-form");
+
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      formData = { ...parsedData, ...formData };
+    }
 
     console.log(formData);
     setForm(formData);
@@ -41,11 +48,11 @@ const UserForm = () => {
     const savedData = localStorage.getItem("multi-step-form");
 
     if (savedData) {
-      const parsedData = JSON.parse(savedData);
+      const { name, email, phone } = JSON.parse(savedData);
 
-      setValue("name", parsedData.name);
-      setValue("email", parsedData.email);
-      setValue("phone", parsedData.phone);
+      setValue("name", name);
+      setValue("email", email);
+      setValue("phone", phone);
     }
   }, []);
 

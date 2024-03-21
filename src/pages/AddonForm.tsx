@@ -2,8 +2,8 @@ import { useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useFormStore } from "../store/form-store";
 
+import { useFormStore } from "../store/form-store";
 import usePageNumStore from "../store/page-num-store";
 import SidebarMobile from "../components/SidebarMobile";
 import NextStep from "../components/NextStep";
@@ -22,8 +22,17 @@ const AddonForm = () => {
 
   const onSubmit = async (data: Partial<TAddons>) => {
     console.log(data);
-    setForm(data);
-    localStorage.setItem("multi-step-form", JSON.stringify(data));
+    let formData = data;
+
+    const savedData = localStorage.getItem("multi-step-form");
+
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      formData = { ...parsedData, ...data };
+    }
+
+    setForm(formData);
+    localStorage.setItem("multi-step-form", JSON.stringify(formData));
   };
 
   useEffect(() => {
