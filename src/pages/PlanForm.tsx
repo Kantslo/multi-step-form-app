@@ -14,12 +14,7 @@ import PrevStep from "../components/PrevStep";
 import NextStep from "../components/NextStep";
 
 const PlanForm = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = useForm({
+  const { register } = useForm({
     resolver: zodResolver(planFormSchema),
   });
   const { setPage } = usePageNumStore();
@@ -63,9 +58,10 @@ const PlanForm = () => {
             <IconArcade />
             <input
               className="invisible"
-              onChange={() => setPlan("arcade")}
+              onClick={() => setPlan("arcade")}
               checked={plan === "arcade"}
               type="checkbox"
+              {...register("plan")}
             />
             <div className="flex flex-col">
               <span className="text-[#022959] font-medium text-[16px]">
@@ -85,9 +81,10 @@ const PlanForm = () => {
             <IconAdvanced />
             <input
               className="invisible"
-              onChange={() => setPlan("advanced")}
+              onClick={() => setPlan("advanced")}
               checked={plan === "advanced"}
               type="checkbox"
+              {...register("plan")}
             />
             <div className="flex flex-col">
               <span className="text-[#022959] font-medium text-[16px]">
@@ -107,9 +104,10 @@ const PlanForm = () => {
             <IconPro />
             <input
               className="invisible"
-              onChange={() => setPlan("pro")}
+              onClick={() => setPlan("pro")}
               checked={plan === "pro"}
               type="checkbox"
+              {...register("plan")}
             />
             <div className="flex flex-col">
               <span className="text-[#022959] font-medium text-[16px]">
